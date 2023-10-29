@@ -1,16 +1,19 @@
-# This is a sample Python script.
-
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import streamlit as st
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def main():
+    st.set_page_config(page_title="Chat with your documents", page_icon="📝")
+
+    st.header("Chat with your documents")
+    st.subheader("Upload your PDFs and start chatting with it!")
+
+    st.text_input("Ask a question about your documents:")
+
+    with st.sidebar:
+        st.subheader("Your documents")
+        st.file_uploader("Upload your PDFs here and click on 'Process'")
+        st.button("Process")
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    main()
