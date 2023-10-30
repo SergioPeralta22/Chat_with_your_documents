@@ -1,6 +1,7 @@
 import streamlit as st
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
+from langchain.text_splitter import CharacterTextSplitter
 
 
 def get_pdf_text(pdf_docs):
@@ -10,6 +11,17 @@ def get_pdf_text(pdf_docs):
         for page in pdf_reader.pages:  # iterate over pages
             text += page.extract_text()  # extract text
     return text  # return text
+
+
+def get_text_chunks(text):
+    text_spliter = CharacterTextSplitter(
+        separator="\n",
+        chunk_size=1000,
+        chunk_overlap=200,
+        length_function=len,
+    )
+    chunks = text_spliter.split_text(text)
+    return chunks
 
 
 def main():
@@ -33,7 +45,8 @@ def main():
 
                 st.write(raw_text)
 
-            # get pdf embeddings
+                # get pdf embeddings
+                text_chunks = get_text_chunks(raw_text)
 
             # create vector store
 
